@@ -1,5 +1,5 @@
 public class TicketingService {
-    public void printTicket(int numberOfSeats) {
+    public void onTicketBooked(int numberOfSeats) {
         System.out.println("Ticket printed");
     }
 }

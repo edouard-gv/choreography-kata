@@ -1,6 +1,4 @@
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BookingServiceTest {
@@ -9,7 +7,8 @@ public class BookingServiceTest {
     public void thereShouldBeEnoughSeats() {
         InventoryService inventoryService = new InventoryService(5);
         TicketingService ticketingService = new TicketingService();
-        BookingService bookingService = new BookingService(new NotificationService(), inventoryService, ticketingService);
+        Orchestrator orchestrator = new Orchestrator(inventoryService, ticketingService);
+        BookingService bookingService = new BookingService(orchestrator);
         bookingService.book(4);
         assertEquals(1, inventoryService.getSeatsLeft());
     }
@@ -17,7 +16,9 @@ public class BookingServiceTest {
     @Test
     public void thereShouldNotBeEnoughSeats() {
         InventoryService inventoryService = new InventoryService(3);
-        BookingService bookingService = new BookingService(new NotificationService(), inventoryService, new TicketingService());
+        TicketingService ticketingService = new TicketingService();
+        Orchestrator orchestrator = new Orchestrator(inventoryService, ticketingService);
+        BookingService bookingService = new BookingService(orchestrator);
         bookingService.book(4);
         assertEquals(3, inventoryService.getSeatsLeft());
     }

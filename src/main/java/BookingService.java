@@ -1,23 +1,14 @@
 public class BookingService {
 
-    private NotificationService notificationService;
-    private InventoryService inventoryService;
-    private TicketingService ticketingService;
+    private final Orchestrator orchestrator;
 
-    public BookingService(NotificationService notificationService, InventoryService inventoryService, TicketingService ticketingService) {
-        this.notificationService = notificationService;
-        this.inventoryService = inventoryService;
-        this.ticketingService = ticketingService;
+    public BookingService(Orchestrator orchestrator) {
+        this.orchestrator = orchestrator;
     }
-
 
     public void book(int numberOfSeats) {
         System.out.println("Booking requested: "+numberOfSeats);
-        if (inventoryService.decrementCapacity(numberOfSeats)) {
-            ticketingService.printTicket(numberOfSeats);
-        }
-        else {
-            notificationService.notifyCustomer();
-        }
+        orchestrator.onTicketBooked(numberOfSeats);
     }
+
 }

@@ -6,7 +6,7 @@ public class InventoryService {
         this.seatsLeft = numberOfSeats;
     }
 
-    public boolean decrementCapacity(int numberOfSeatsRequested) {
+    public boolean onTicketBooked(int numberOfSeatsRequested) {
         if (numberOfSeatsRequested > this.seatsLeft) {
             return false;
         }
