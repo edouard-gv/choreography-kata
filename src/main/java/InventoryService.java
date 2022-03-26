@@ -1,17 +1,21 @@
 public class InventoryService {
 
-    int numberOfSeats;
+    int seatsLeft;
 
     public InventoryService(int numberOfSeats) {
-        this.numberOfSeats = numberOfSeats;
+        this.seatsLeft = numberOfSeats;
     }
 
     public boolean decrementCapacity(int numberOfSeatsRequested) {
-        if (numberOfSeatsRequested > this.numberOfSeats) {
+        if (numberOfSeatsRequested > this.seatsLeft) {
             return false;
         }
-        this.numberOfSeats -= numberOfSeatsRequested;
-        System.out.println("Remaining number of seats: "+this.numberOfSeats);
+        this.seatsLeft -= numberOfSeatsRequested;
+        System.out.println("Remaining number of seats: "+this.seatsLeft);
         return true;
+    }
+
+    public Object getSeatsLeft() {
+        return this.seatsLeft;
     }
 }
