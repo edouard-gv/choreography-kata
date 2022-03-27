@@ -1,14 +1,17 @@
+import bus.Event;
+import bus.MessageBus;
+
 public class BookingService {
 
-    private final Orchestrator orchestrator;
+    private final MessageBus bus;
 
-    public BookingService(Orchestrator orchestrator) {
-        this.orchestrator = orchestrator;
+    public BookingService(MessageBus bus) {
+        this.bus = bus;
     }
 
     public void book(int numberOfSeats) {
         System.out.println("Booking requested: "+numberOfSeats);
-        orchestrator.onTicketBooked(numberOfSeats);
+        bus.send(new Event(Event.ON_BOOKING_REQUESTER, numberOfSeats));
     }
 
 }
