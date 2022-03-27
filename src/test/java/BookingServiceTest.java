@@ -7,8 +7,7 @@ public class BookingServiceTest {
     public void thereShouldBeEnoughSeats() {
         InventoryService inventoryService = new InventoryService(5);
         TicketingService ticketingService = new TicketingService();
-        NotificationService notificationService = new NotificationService();
-        Orchestrator orchestrator = new Orchestrator(inventoryService, ticketingService, notificationService);
+        Orchestrator orchestrator = new Orchestrator(inventoryService, ticketingService);
         BookingService bookingService = new BookingService(orchestrator);
         bookingService.book(4);
         assertEquals(1, inventoryService.getSeatsLeft());
@@ -18,8 +17,7 @@ public class BookingServiceTest {
     public void thereShouldNotBeEnoughSeats() {
         InventoryService inventoryService = new InventoryService(3);
         TicketingService ticketingService = new TicketingService();
-        NotificationService notificationService = new NotificationService();
-        Orchestrator orchestrator = new Orchestrator(inventoryService, ticketingService, notificationService);
+        Orchestrator orchestrator = new Orchestrator(inventoryService, ticketingService);
         BookingService bookingService = new BookingService(orchestrator);
         bookingService.book(4);
         assertEquals(3, inventoryService.getSeatsLeft());
