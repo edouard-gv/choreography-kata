@@ -9,6 +9,7 @@ public class BookingServiceTest {
         MessageBus bus = new MessageBus();
         InventoryService inventoryService = new InventoryService(5, bus);
         TicketingService ticketingService = new TicketingService(bus);
+        NotificationService notificationService = new NotificationService(bus);
         BookingService bookingService = new BookingService(bus);
         bookingService.book(4);
         assertEquals(1, inventoryService.getSeatsLeft());
@@ -19,6 +20,7 @@ public class BookingServiceTest {
         MessageBus bus = new MessageBus();
         InventoryService inventoryService = new InventoryService(5, bus);
         TicketingService ticketingService = new TicketingService(bus);
+        NotificationService notificationService = new NotificationService(bus);
         BookingService bookingService = new BookingService(bus);
         bookingService.book(7);
         assertEquals(5, inventoryService.getSeatsLeft());
