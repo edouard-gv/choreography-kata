@@ -22,9 +22,9 @@ Let's consider a system to sell theater tickets online. It's made of:
 1. Right now the buyer is not informed when there's no seat left, you need to add a notification service (text or email) for this cas. Add the new service and integrate it so that it gets notified when needed.
 1. Observe and comment the necessary changes when adding or suppressing new services. Propose an alternative approach.
 
-**Alternative Approach *
+**Alternative Approach**
 
-1. Introduce your own EventBus as a simple alternative pattern (code sample below in Java), then transform the services so that all the coordination is done through the bus, without the Notification service to start with.
+1. Introduce your own EventBus as a simple alternative pattern (code sample below in Java) (BONUS: You may as well introduce the bus by progressively refactor your orchestrator). Then transform the services so that all the coordination is done through the bus, without the Notification service to start with.
 1. Now add the Notification service, then observe and comment the necessary changes when adding or suppressing new services. 
 1. Compare both approaches, observe how the workflow logic is now fragmented into each service. Debrief: compare respective advantages and drawbacks of each apprach, and which constraints are necessary to follow the Open-Close principle.
 
@@ -82,9 +82,10 @@ This kata covers the following aspects: **Event-Driven Architecture**, **Choreog
 ## Enoncé du problème (Francais)
 
 
-Considérons un système de distributions de billets de spectacles en ligne. Le processus de vente consiste typiquement à Réserver (Booking), puis à réduire l'inventaire en correspondance s'il reste suffisamment de place (Inventory), puis à envoyer les billets (Ticketing), chacune de ces étapes étant un service distinct.
-
-*Pour rester simple, chaque service ne fera rien d'autre que prétendre avoir terminé son travail et assurer la coordination d'ensemble.*
+Considérons un système de distributions de billets de spectacles en ligne. Le processus de vente consiste typiquement à Réserver (Booking), puis à réduire l'inventaire en correspondance s'il reste suffisamment de place (Inventory), puis à envoyer les billets (Ticketing), chacune de ces étapes étant un service distinct :
+- un service Booking avec une fonction book(int numberOfSeats) qui imprime "booking requested" dans la sortie standard quand l'action est considérée comme faite.
+- un service Inventory avec une fonction decrementCapacity(int numberOfSeats) qui vérifie qu'il y a assez de places, et dans ce cas décrémente le compteur interne de places disponibles et affiche le nombre de places restantes.
+- un service Ticketing avec une fonction printTicket(int numberOfSeats) qui affiche "ticket printed" quand l'action est considérée comme faite.
 
 ## Les étapes :
 
